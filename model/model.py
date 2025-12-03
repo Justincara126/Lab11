@@ -5,6 +5,9 @@ from database.dao import DAO
 class Model:
     def __init__(self):
         self.G = nx.Graph()
+        self.lista_rifugi=[]
+        self.lista_connessioni=[]
+
 
     def build_graph(self, year: int):
         """
@@ -14,12 +17,28 @@ class Model:
         :param year: anno limite fino al quale selezionare le connessioni da includere.
         """
         # TODO
+        self.get_nodes()
+        self.get_connessioni(year)
+        for connessione in  self.lista_connessioni:
+            rifugio1=self.lista_rifugi[connessione.id_rifugio1]
+            rifugio2=self.lista_rifugi[connessione.id_rifugio2]
+            self.G.add_edge(rifugio1, rifugio2)
+        print(self.G)
+        return self.G.nodes()
+
 
     def get_nodes(self):
         """
         Restituisce la lista dei rifugi presenti nel grafo.
         :return: lista dei rifugi presenti nel grafo.
         """
+        x=DAO()
+        self.lista_rifugi=x.search_all_rifugi()
+
+
+   #for rifugio in self.lista_rifugi:
+   #         self.dizionario_rifugi[rifugio['id']]=rifugio
+
         # TODO
 
     def get_num_neighbors(self, node):
@@ -28,6 +47,7 @@ class Model:
         :param node: un rifugio (cioè un nodo del grafo)
         :return: numero di vicini diretti del nodo indicato
         """
+        return self.G.degree(node)
         # TODO
 
     def get_num_connected_components(self):
@@ -36,6 +56,7 @@ class Model:
         :return: numero di componenti connesse
         """
         # TODO
+        return self.G.nodes()
 
     def get_reachable(self, start):
         """
@@ -51,7 +72,36 @@ class Model:
         b = self.get_reachable_iterative(start)
         b = self.get_reachable_recursive(start)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         return a
         """
 
         # TODO
+    def get_connessioni(self, anno):
+        x=DAO()
+        self.lista_connessioni=x.get_all_connessioni_anno(anno)
