@@ -9,9 +9,5 @@ class Rifugio:
     nome: str
     localita: str
     altitude: int
+    capienza:int
     aperto: bool
-    def __str__(self):
-        return f'{self.id}  {self.nome}'
-    def __hash__(self):
-        return hash(self.id)
-
