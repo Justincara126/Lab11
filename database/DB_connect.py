@@ -13,7 +13,7 @@ class DBConnect:
     _pool_connessioni = None
 
     def __init__(self):
-        raise RuntimeError("Non creare un'istanza, usa il metodo di classe ottieni_connessione()!")
+        pass#raise RuntimeError("Non creare un'istanza, usa il metodo di classe ottieni_connessione()!")
 
     @classmethod
     def get_connection(cls, nome_pool="mio_pool", dimensione_pool=3) -> mysql.connector.pooling.PooledMySQLConnection | None:
